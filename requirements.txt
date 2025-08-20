@@ -1,2 +1,2 @@
-Adafruit_DHT==1.4.2
-RPi.GPIO==0.7.1 
+Adafruit_DHT>=1.4.0
+RPi.GPIO>=0.7.0 

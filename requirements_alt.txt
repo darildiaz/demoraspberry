@@ -1,0 +1,7 @@
+# Versiones alternativas disponibles en PyPI
+Adafruit_DHT==1.4.0
+RPi.GPIO==0.7.0
+
+# O usar versiones mínimas (más flexibles)
+# Adafruit_DHT>=1.3.4
+# RPi.GPIO>=0.7.0 

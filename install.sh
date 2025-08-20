@@ -32,7 +32,18 @@ source dht11_env/bin/activate
 # Instalar dependencias de Python
 echo "📚 Instalando dependencias de Python..."
 pip install --upgrade pip
-pip install -r requirements.txt
+
+# Intentar instalar en entorno virtual primero
+if python3 -m venv dht11_env 2>/dev/null; then
+    echo "✅ Entorno virtual creado exitosamente"
+    source dht11_env/bin/activate
+    pip install -r requirements.txt
+    echo "✅ Dependencias instaladas en entorno virtual"
+else
+    echo "⚠️  No se pudo crear entorno virtual, intentando instalación directa..."
+    pip install --break-system-packages -r requirements.txt
+    echo "✅ Dependencias instaladas con --break-system-packages"
+fi
 
 # Configurar permisos GPIO
 echo "🔐 Configurando permisos GPIO..."
