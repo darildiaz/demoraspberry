@@ -44,8 +44,25 @@ if [ $? -eq 0 ]; then
             echo "⚠️  Falló requirements.txt, intentando con versiones alternativas..."
             
             # Instalar paquetes individuales con versiones disponibles
-            pip install Adafruit_DHT==1.4.0
+            echo "📦 Instalando RPi.GPIO..."
             pip install RPi.GPIO==0.7.0
+            
+            echo "📦 Instalando Adafruit_DHT con --force-pi..."
+            pip install Adafruit_DHT --force-pi
+            
+            if [ $? -eq 0 ]; then
+                echo "✅ Adafruit_DHT instalado exitosamente"
+            else
+                echo "⚠️  Falló instalación directa, intentando con dependencias del sistema..."
+                
+                # Instalar dependencias del sistema necesarias
+                sudo apt install -y python3-dev python3-pip python3-setuptools
+                sudo apt install -y build-essential libffi-dev libssl-dev
+                sudo apt install -y python3-wheel
+                
+                # Intentar nuevamente
+                pip install Adafruit_DHT --force-pi
+            fi
             
             if [ $? -eq 0 ]; then
                 echo "✅ Dependencias instaladas con versiones alternativas"
