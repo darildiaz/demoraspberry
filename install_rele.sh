@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "🌡️  Instalando demo para sensor DHT11 en Raspberry Pi"
-echo "=================================================="
+echo "🔌 Instalando demo para relé en Raspberry Pi"
+echo "============================================"
 
 # Verificar si estamos en Raspberry Pi
 if ! grep -q "Raspberry Pi" /proc/cpuinfo 2>/dev/null; then
@@ -24,26 +24,15 @@ sudo apt-get install -y git
 echo "⚡ Instalando herramientas GPIO..."
 sudo apt-get install -y python3-gpiozero
 
-# Crear entorno virtual (opcional pero recomendado)
+# Crear entorno virtual
 echo "🐍 Creando entorno virtual..."
-python3 -m venv dht11_env
-source dht11_env/bin/activate
+python3 -m venv rele_env
+source rele_env/bin/activate
 
 # Instalar dependencias de Python
 echo "📚 Instalando dependencias de Python..."
 pip install --upgrade pip
-
-# Intentar instalar en entorno virtual primero
-if python3 -m venv dht11_env 2>/dev/null; then
-    echo "✅ Entorno virtual creado exitosamente"
-    source dht11_env/bin/activate
-    pip install -r requirements.txt
-    echo "✅ Dependencias instaladas en entorno virtual"
-else
-    echo "⚠️  No se pudo crear entorno virtual, intentando instalación directa..."
-    pip install --break-system-packages -r requirements.txt
-    echo "✅ Dependencias instaladas con --break-system-packages"
-fi
+pip install RPi.GPIO
 
 # Configurar permisos GPIO
 echo "🔐 Configurando permisos GPIO..."
@@ -53,13 +42,13 @@ echo ""
 echo "✅ Instalación completada!"
 echo ""
 echo "Para activar el entorno virtual:"
-echo "  source dht11_env/bin/activate"
+echo "  source rele_env/bin/activate"
 echo ""
 echo "Para ejecutar la demo:"
-echo "  python dht11_demo.py"
+echo "  python rele_demo.py"
 echo ""
 echo "Para ver todas las opciones:"
-echo "  python dht11_demo.py --help"
+echo "  python rele_demo.py --help"
 echo ""
 echo "⚠️  IMPORTANTE: Reinicia tu Raspberry Pi para que los cambios de permisos surtan efecto"
 echo "" 
